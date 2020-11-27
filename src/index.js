@@ -23,7 +23,6 @@ class FFMPEGClient {
 
       this._registerCallbacks(this.OPTIONS.on);
       this._registerWorker(this.OPTIONS.worker);
-      this._registerProcessors();
     } else {    
       this.OPTIONS.on.notSupported({
         message: 'Your environment doesn\'t support ffmpeg-worker-client or you\'re not in a Browser.'
@@ -99,12 +98,6 @@ class FFMPEGClient {
       const task = this.QUEUE.shift();
 
       this.ffmpeg(task);
-    }
-  }
-
-  _registerProcessors () {
-    if (typeof FFMPEGClientProcessors === 'function') {
-      this.processors = new FFMPEGClientProcessors(this);
     }
   }
 

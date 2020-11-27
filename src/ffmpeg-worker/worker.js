@@ -74,12 +74,17 @@ function execute (task) {
     });
   }
 
-  return postMessage({
-    result,
-    stdout,
-    type: 'done',
-    blobs: result.map(r => new Blob([ r.data ]))
-  });
+  if (!result[0]) {
+    return send('error', { error: `The ffmpeg exec returned an empty result. This may be caused by a runtime error\,
+    a bad input, corrupted file, wrong or no arguments, or bad network connection. See the stdout for details.`.replace('    ', ' '), stdout });
+  } else {
+    return postMessage({
+      result,
+      stdout,
+      type: 'done',
+      blobs: result.map(r => new Blob([ r.data ]))
+    });
+  }
 }
 
 // ---------------------------------------------------
