@@ -76,7 +76,7 @@ function execute (task) {
 
   if (!result[0]) {
     return send('error', { error: `The ffmpeg exec returned an empty result. This may be caused by a runtime error\,
-    a bad input, corrupted file, wrong or no arguments, or bad network connection. See the stdout for details.`.replace('    ', ' '), stdout });
+    a bad input, corrupted file, wrong or no arguments, or bad network connection. See the stdout for details.`.replace(/\s\s+/g, ' '), stdout });
   } else {
     return postMessage({
       result,

@@ -3,17 +3,56 @@ class FFMPEGClientProcessors {
     this.FF = ffmpegClientInstance;
   }
 
-  test () {
-    console.log(this.FF);
-  }
-
-  trim (from, to, options) {
-    options.args = ``;
-
+  process (options) {
     return this.FF.run(options);
   }
 
-  chunks (secs, options) {
+  /**
+   * Trims a video file by start and end time
+   * 
+   * @param {string} from 00:00:00
+   * @param {string} to   00:00:00 
+   * @param {*} options   ffmpeg client options
+   */
+  trim (from, to, options) {
+    options.args = `-ss ${from} -i {{file}} -to ${to} -c copy {{file}}`;
 
+    return this.process(options);
+  }
+
+  /**
+   * Split a video in equal time chuncks
+   * 
+   * @param {float} secs       time of each chunck
+   * @param {options} options  ffmpeg client options
+   */
+  chunks (secs, trim, options) {
+    options.args = ``;
+
+    return this.process(options);
+  }
+
+  /**
+   * Generate a image thumb of the passed second
+   * 
+   * @param {float} sec time to snapshot
+   * @param {options} options  ffmpeg client options
+   */
+  thumb (sec, options) {
+    options.args = ``;
+
+    return this.process(options);    
+  }
+
+  /**
+   * Generate multiple thumbs of the passed seconds
+   * 
+   * @param {array} secs array of float
+   * @param {options} options  ffmpeg client options
+   */
+  thumbs (secs, options) {
+    options.args = ``;
+
+    return this.process(options);
   }
 }
