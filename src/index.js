@@ -6,7 +6,11 @@ class FFMPEGClient {
     this.WORKER = undefined;
     this.SUPPORTED = this._supported();
 
-    this._init();
+    if (window.__FFMPEGCLIENT) {
+      return window.__FFMPEGCLIENT;
+    } else {
+      this._init();
+    }
   }
 
   _supported() {
@@ -15,6 +19,8 @@ class FFMPEGClient {
 
   _init () {
     if (this.SUPPORTED) {
+      window.__FFMPEGCLIENT = this;
+
       this._registerCallbacks(this.OPTIONS.on);
       this._registerWorker(this.OPTIONS.worker);
       this._registerProcessors();
