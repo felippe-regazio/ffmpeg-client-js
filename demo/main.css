@@ -1,0 +1,53 @@
+html, body {
+  margin: 0;
+  padding: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+form, form * {
+  box-sizing: border-box;
+}
+form > * {
+  display: block;
+  margin-bottom: 8px;
+}
+form label {
+  font-weight: 700;
+}
+form input {
+  height: 40px;
+  font-size: 14px;
+  width: 300px;
+  padding: 10px;
+}
+.step {
+  margin: 20px 0;
+  display: block;
+  text-transform: uppercase;
+}
+.form-field {
+  counter-increment: steps;
+}
+.step::before {
+  content: counter(steps);
+  background-color: yellow;
+  padding: 4px;
+  border-radius: 100%;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+}
+.go-button {
+  width: 100%;
+  display: block;
+  max-width: 400px;
+  cursor: pointer;
+  height: 40px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+p {
+  color: #444444;
+}

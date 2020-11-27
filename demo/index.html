@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wasm FFMPEG Client Demo</title>
+  <link rel="stylesheet" href="./main.css">
+</head>
+<body>
+  
+  <h1>Wasm FFMPEG Client Demo</h1>
+  
+  <form id="theform" action="/" onsubmit="processFiles(event); return false;" disabled>
+    <div class="form-field">
+      <label class="step">Choose one or many files</label>
+      <input type="file" name="ffmpeg-files" accept="video/*" multiple>
+    </div>
+    
+    <div class="form-field">
+      <label class="step">Add FFMPEG Arguments</label>
+      <input type="text" name="ffmpeg-args" value="-i {{file}} -t 00:00:15 -c copy {{file}}">
+      <p>This default command extracts the first 15 secs of a video<br/>Check your console log when running commands</p>
+    </div>
+    
+    <div class="form-field">
+      <label class="step">Process It!</label>
+      <p>Keep your inspector/console opened to check the file process information</p>
+    </div>
+
+    <button class="go-button">Go</button>
+  </form>
+  
+  <script src="./../src/index.js" type="application/javascript"></script>
+  <script src="./main.js" type="application/javascript"></script>
+</body>
+</html>
