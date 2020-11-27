@@ -23,7 +23,7 @@ class FFMPEGClientProcessors {
   /**
    * Split a video in equal time chuncks
    * 
-   * @param {float} secs       time of each chunck
+   * @param {integer} secs     time of each chunck in seconds
    * @param {options} options  ffmpeg client options
    */
   chunks (secs, trim, options) {
@@ -35,7 +35,7 @@ class FFMPEGClientProcessors {
   /**
    * Generate a image thumb of the passed second
    * 
-   * @param {float} sec time to snapshot
+   * @param {integer} sec momment to snapshot in seconds
    * @param {options} options  ffmpeg client options
    */
   thumb (sec, options) {
@@ -47,7 +47,7 @@ class FFMPEGClientProcessors {
   /**
    * Generate multiple thumbs of the passed seconds
    * 
-   * @param {array} secs array of float
+   * @param {array} secs array of integers (seconds)
    * @param {options} options  ffmpeg client options
    */
   thumbs (secs, options) {
