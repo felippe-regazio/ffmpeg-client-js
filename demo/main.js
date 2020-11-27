@@ -11,8 +11,8 @@ function processFiles (e) {
   e.preventDefault();
 
   ffmpeg.run({
-    args: document.forms.theform.querySelector('input[name=ffmpeg-args]').value,
     files: document.forms.theform.querySelector('input[type=file]').files,
+    args: document.forms.theform.querySelector('input[name=ffmpeg-args]').value,
     on: {
       busy: data => console.log(data),
 
