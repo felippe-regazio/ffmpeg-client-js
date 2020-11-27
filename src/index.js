@@ -104,8 +104,6 @@ class FFMPEGClient {
   // ------------------------------------------------
 
   ffmpeg (task) {
-    if (!task) return;
-
     if (!this.READY || this.BUSY) {
       this.QUEUE.push(task);
     } else {
@@ -120,9 +118,5 @@ class FFMPEGClient {
 
   run (task) {
     return this.ffmpeg(task);
-  }
-
-  version () {
-    return `FFMPEG Worker 0.0.1`;
   }
 }
