@@ -60,7 +60,7 @@ function execute (task) {
       const r = ffmpeg_run({
         stdin: () => {},
         files: [ _file ],
-        args: _args,
+        arguments: _args,
         print: out => stdout += `\n${out}`,
         printErr: out => stdout += `\n${out}`,
         onExit: error => {

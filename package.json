@@ -6,7 +6,7 @@
   "scripts": {
     "build": "babel src -d dist; npm run uglify; npm run dist-wasm",
     "uglify": "for f in $(find ./dist -type f -name '*.js');do uglifyjs --compress --mangle -o \"$f\" -- \"$f\";done",
-    "dist-wasm": "cp ./src/ffmpeg-worker/ffmpeg-wasm.js ./dist/ffmpeg-worker"
+    "dist-wasm": "cp -n ./src/ffmpeg-worker/ffmpeg-wasm.js ./dist/ffmpeg-worker"
   },
   "repository": {
     "type": "git",
