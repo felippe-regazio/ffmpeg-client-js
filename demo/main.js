@@ -1,5 +1,5 @@
 const ffmpeg = new FFMPEGClient({
-  worker: ' http://localhost/ffmpeg-wasm-client/src/ffmpeg-worker/worker.js',
+  worker: `${window.location.href.replace('/demo/', '')}/dist/ffmpeg-worker/worker.js`,
   on: {
     loading: data => console.log(data),
     ready: data => console.log(data),

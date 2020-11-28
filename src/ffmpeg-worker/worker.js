@@ -47,7 +47,7 @@ function execute (task) {
   send('busy', {});
 
   let files = task.files;
-  let arguments = task.args;
+  let args = task.args;
 
   let stdout = '';
   let result = [];
@@ -55,12 +55,12 @@ function execute (task) {
   if (files && files.length) {
     Array.from(files).forEach(file => {
       const _file = parseFile(file);
-      const _args = parseArgs(arguments.replace(/\{\{file\}\}/g, file.name));
+      const _args = parseArgs(args.replace(/\{\{file\}\}/g, file.name));
 
       const r = ffmpeg_run({
         stdin: () => {},
         files: [ _file ],
-        arguments: _args,
+        args: _args,
         print: out => stdout += `\n${out}`,
         printErr: out => stdout += `\n${out}`,
         onExit: error => {
