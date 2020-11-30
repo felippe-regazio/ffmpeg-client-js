@@ -65,9 +65,9 @@ function splitFiles (e) {
 function doneCallback (data) {
   console.log(data);
         
-  data.result.forEach(out => {
-    out.blobs.forEach((blob, index) => {
-      download(out.buffers[index].name, blob);
+  data.result.forEach(output => {
+    output.blobs.forEach((blob, index) => {
+      download(output.buffers[index].name, blob);
     });
   });
 }
