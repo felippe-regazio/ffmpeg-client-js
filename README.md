@@ -28,9 +28,9 @@ const ffmpeg = new FFMPEGClient({
 
 ### The Instance Callbacks
 
-When instantiating your client, you have 3 callbacks
+When instantiating your client, you have 3 callbacks:
 
-|callback|meaning|
+|callback|definition|
 |---|---|
 |loading|triggered when the Web Worker starts to import the FFMPEG Wasm Module, any file you send to be processed will wait on a Queue and will be processed only when this process has finished. This process will be dramatically faster after the first time due the cache.|
 |ready|triggered when the Web Worker has finished the FFMPEG Wasm Module Import, and its ready to process files.|
@@ -38,6 +38,17 @@ When instantiating your client, you have 3 callbacks
 
 ### The Instance Methods
 
+After instantiate the client, you can call the following methods:
+
+|method|definition|
+|---|---|
+|ffmpeg|send files to be processed by FFMPEG and get the results|
+|run|an alias to the `ffmpeg` method|
+|isBusy|check if the instance is busy (processing something)|
+|isReady|check if the instance is ready (has already loaded the ffmpeg)|
+|supported|check if this module is supported by the client|
+
+### Processing Files
 
 
 # How it Works?
