@@ -28,7 +28,6 @@ class FFMPEGClientProcessors {
    */
   split (time, options) {
     options.args = `-i {{file}} -c copy -map 0 -segment_time ${time} -f segment -reset_timestamps 1 %03d_{{file}}`;
-    console.log(options);
 
     return this.process(options);
   }
