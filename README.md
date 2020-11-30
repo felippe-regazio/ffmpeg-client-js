@@ -98,9 +98,9 @@ ffmpeg.run({
 
 The command above will run the `ffmpeg` with the given `args` for each file in `myFiles`, if an error occours, the `error` callback will be triggered passing the { error } as argument, if no error happened, the `done` callback will be triggered passing the { result } as argument.
 
-`Attention`: you must omit the "ffmpeg" word from `args`, Also, the `files` key accepts a single file or an array of files. If an array of file is passed, the command will run separately on each file in a FIFO order of processing. There will be no concurrent files, one file will be processed at a time to avoid high memory usage. On success (done) all the processed files will be returned. On error, no files will be returned.
+**Attention**: you must omit the "ffmpeg" word from `args`, Also, the `files` key accepts a single file or an array of files. If an array of file is passed, the command will run separately on each file in a FIFO order of processing. There will be no concurrent files, one file will be processed at a time to avoid high memory usage. On success (done) all the processed files will be returned. On error, no files will be returned.
 
-`Pro Tip`: You can with arguments for multiple files since each file has a different name. To avoid problemas you can use the magic word `{{file}}` on args, which will be replaced for the name of the current file being processed.
+**Pro Tip**: You can with arguments for multiple files since each file has a different name. To avoid problemas you can use the magic word `{{file}}` on args, which will be replaced for the name of the current file being processed.
 
 # How it Works?
 
