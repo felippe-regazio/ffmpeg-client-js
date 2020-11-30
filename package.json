@@ -1,10 +1,11 @@
 {
   "name": "ffmpeg-wasm-client",
   "version": "1.0.0",
-  "description": "This is an EXPERIMENT with FFMPEG Wasm and Web Workers.  Contains a class to comounicate with and process files using a worker and the wasm. Also contains some experiments on front in order to get non-uploaded video information.",
-  "main": "index.js",
+  "description": "FFMPEG client for front end video processing",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "babel src -d dist; npm run uglify; npm run dist-wasm",
+    "clean": "rm -rf ./dist",
+    "build": "npm run clean; babel src -d dist; npm run uglify; npm run dist-wasm",
     "uglify": "for f in $(find ./dist -type f -name '*.js');do uglifyjs --compress --mangle -o \"$f\" -- \"$f\";done",
     "dist-wasm": "cp -n ./src/ffmpeg-worker/ffmpeg-wasm.js ./dist/ffmpeg-worker"
   },

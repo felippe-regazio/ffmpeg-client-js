@@ -70,7 +70,12 @@ function execute (task) {
         },
       });
 
-      result.push( r[0] );
+      result.push({
+        buffers: r,
+        name: _file.name,
+        args: _args.join(' '),
+        blobs: r.map(r => new Blob([ r.data ]))
+      });
     });
   }
 
@@ -81,8 +86,7 @@ function execute (task) {
     return postMessage({
       result,
       stdout,
-      type: 'done',
-      blobs: result.map(r => new Blob([ r.data ]))
+      type: 'done'
     });
   }
 }

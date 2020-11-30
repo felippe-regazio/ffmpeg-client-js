@@ -19,10 +19,13 @@ form input {
   width: 300px;
   padding: 10px;
 }
-.step {
+label {
   margin: 20px 0;
   display: block;
   text-transform: uppercase;
+}
+label:not(.step) {
+  font-size: 14px;
 }
 .form-field {
   counter-increment: steps;

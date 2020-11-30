@@ -15,19 +15,20 @@ class FFMPEGClientProcessors {
    * @param {*} options   ffmpeg client options
    */
   trim (from, to, options) {
-    options.args = `-ss ${from} -i {{file}} -to ${to} -c copy {{file}}`;
+    options.args = `-i {{file}} -ss ${from} -to ${to} -c:v copy -c:a copy {{file}}`;
 
     return this.process(options);
   }
 
   /**
-   * Split a video in equal time chuncks
+   * Split a video in equal time chunks
    * 
-   * @param {integer} secs     time of each chunck in seconds
+   * @param {integer} time     time of each chunk
    * @param {options} options  ffmpeg client options
    */
-  chunks (secs, trim, options) {
-    options.args = ``;
+  split (time, options) {
+    options.args = `-i {{file}} -c copy -map 0 -segment_time ${time} -f segment -reset_timestamps 1 %03d_{{file}}`;
+    console.log(options);
 
     return this.process(options);
   }

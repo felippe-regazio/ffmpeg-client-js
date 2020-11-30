@@ -1,5 +1,5 @@
 const ffmpeg = new FFMPEGClient({
-  worker: `${window.location.href.replace('/demo/', '')}/dist/ffmpeg-worker/worker.js`,
+  worker: '../dist/ffmpeg-worker/worker.js',
   on: {
     loading: data => console.log(data),
     ready: data => console.log(data),
@@ -7,29 +7,68 @@ const ffmpeg = new FFMPEGClient({
   }
 });
 
+const ffmpegProcessors = new FFMPEGClientProcessors(ffmpeg);
+
+// ---------------------------------------------------------
+
 function processFiles (e) {
   e.preventDefault();
+  
+  const form = document.forms.theform;
 
   ffmpeg.run({
-    files: document.forms.theform.querySelector('input[type=file]').files,
-    args: document.forms.theform.querySelector('input[name=ffmpeg-args]').value,
+    files: form.querySelector('input[type=file]').files,
+    args: form.querySelector('input[name=ffmpeg-args]').value,
     on: {
-      busy: data => console.log(data),
-
-      done: data => {
-        console.log(data);
-        
-        if (! data.blobs.length) {
-          console.log('The result is empty');
-        } else {
-          Array.from(data.blobs).forEach((blob, index) => {
-            download(data.result[index].name, blob);
-          });
-        }
-      },
-
-      error: data => console.log(data)
+      busy: console.log,
+      error: console.log,
+      done: doneCallback,
     }
+  });
+}
+
+function trimFiles (e) {
+  e.preventDefault();
+
+  const form = document.forms.theform;
+  const files = form.querySelector('input[type=file]').files;
+  const start = form.querySelector('input[name=start-time]').value;
+  const end = form.querySelector('input[name=end-time]').value;
+
+  ffmpegProcessors.trim(start, end, {
+    files: files,
+    on: {
+      busy: console.log,
+      error: console.log,
+      done: doneCallback,
+    }
+  })
+}
+
+function splitFiles (e) {
+  e.preventDefault();
+
+  const form = document.forms.theform;
+  const files = form.querySelector('input[type=file]').files;  
+  const time = form.querySelector('input[name=chunk-time]').value;
+
+  ffmpegProcessors.split(time, {
+    files: files,
+    on: {
+      busy: console.log,
+      error: console.log,
+      done: doneCallback,
+    }
+  });
+}
+
+function doneCallback (data) {
+  console.log(data);
+        
+  data.result.forEach(out => {
+    out.blobs.forEach((blob, index) => {
+      download(out.buffers[index].name, blob);
+    });
   });
 }
 
