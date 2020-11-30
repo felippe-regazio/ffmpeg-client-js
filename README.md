@@ -36,6 +36,10 @@ When instantiating your client, you have 3 callbacks
 |ready|triggered when the Web Worker has finished the FFMPEG Wasm Module Import, and its ready to process files.|
 |noSupported|triggered when this module is not supported by the client, and no Worker will be registered.|
 
+### The Instance Methods
+
+
+
 # How it Works?
 
 This module is optimized to work with multiple files at once without warm the client or the app payload, to achieve it, the following steps will happen when you instantiate your ffmpeg client:
