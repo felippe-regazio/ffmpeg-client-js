@@ -23,7 +23,7 @@ class FFMPEGClientProcessors {
 	/**
    * Split a video in equal time chunks
    *
-   * @param {integer} time     time of each chunk
+   * @param {integer} time     time of each chunk (00:00:00)
    * @param {options} options  ffmpeg client options
    */
 	split(time, options) {
@@ -35,23 +35,11 @@ class FFMPEGClientProcessors {
 	/**
    * Generate a image thumb of the passed second
    *
-   * @param {integer} sec momment to snapshot in seconds
+   * @param {integer} time momment to snapshot (00:00:00)
    * @param {options} options  ffmpeg client options
    */
-	thumb(sec, options) {
-		options.args = ``;
-
-		return this.process(options);
-	}
-
-	/**
-   * Generate multiple thumbs of the passed seconds
-   *
-   * @param {array} secs array of integers (seconds)
-   * @param {options} options  ffmpeg client options
-   */
-	thumbs(secs, options) {
-		options.args = ``;
+	thumb(time, options) {
+		options.args = `-i {{file}} -ss ${time} -vframes 1 {{file}}.thumb.png`;
 
 		return this.process(options);
 	}

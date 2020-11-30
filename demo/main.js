@@ -62,6 +62,23 @@ function splitFiles (e) {
   });
 }
 
+function thumbFile (e) {
+  e.preventDefault();
+
+  const form = document.forms.theform;
+  const files = form.querySelector('input[type=file]').files;  
+  const time = form.querySelector('input[name=thumb-time]').value;
+
+  ffmpegProcessors.thumb(time, {
+    files: files,
+    on: {
+      busy: console.log,
+      error: console.log,
+      done: doneCallback,
+    }
+  });  
+}
+
 function doneCallback (data) {
   console.log(data);
         

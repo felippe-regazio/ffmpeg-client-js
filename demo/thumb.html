@@ -7,18 +7,19 @@
   <link rel="stylesheet" href="./main.css">
 </head>
 <body>
-  <h1>Wasm FFMPEG Client Demo</h1>
+  <h1>Wasm FFMPEG Client Demo (Thumb Processor)</h1>
   
-  <form id="theform" action="/" onsubmit="processFiles(event); return false;" disabled>
+  <form id="theform" action="/" onsubmit="thumbFile(event); return false;" disabled>
     <div class="form-field">
       <label class="step">Choose one or many files</label>
       <input type="file" name="ffmpeg-files" accept="video/*" multiple>
     </div>
     
     <div class="form-field">
-      <label class="step">Add FFMPEG Arguments</label>
-      <input type="text" name="ffmpeg-args" value="-i {{file}} -t 00:00:15 -c copy {{file}}">
-      <p>This default command extracts the first 15 secs of a video<br/>Check your console log when running commands</p>
+      <label class="step">Add arguments</label>
+      
+      <label for="start-time">Thumb Time</label>
+      <input type="text" name="thumb-time" value="00:00:15">
     </div>
     
     <div class="form-field">
@@ -27,11 +28,6 @@
       <button class="go-button">Go</button>
     </div>
   </form>
-
-  <br/><hr>
-  <a href="./chunks.html">Chunks</a> |
-  <a href="./trim.html">Trim</a> |
-  <a href="./thumb.html">Thumb</a>
   
   <script src="./../src/index.js" type="application/javascript"></script>
   <script src="./../src/processors.js" type="application/javascript"></script>
