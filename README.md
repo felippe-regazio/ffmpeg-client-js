@@ -76,6 +76,31 @@ ffmpeg.supported(); // return true or false
 
 ### Processing Files
 
+You can use the `ffmpeg` method to process files (or its alias: `run`).
+Imagine that we have instantiated the FFMPEGClient as const `ffmpeg`:
+
+```js
+const myFiles = document.forms.myForm.querySelector('input[type=file]').files;
+
+ffmpeg.run({
+  files: myFiles,
+  args: '-i {{file}} -t 00:00:15 -c copy {{file}}',
+  on: {
+    busy: console.log,
+    error: console.log,
+    done: data => {
+      // this is the result
+      console.log(data);
+    }
+  }
+});
+```
+
+The command above will run the `ffmpeg` with the given `args` for each file in `myFiles`, if an error occours, the `error` callback will be triggered passing the { error } as argument, if no error happened, the `done` callback will be triggered passing the { result } as argument.
+
+`Attention`: you must omit the "ffmpeg" word from `args`, Also, the `files` key accepts a single file or an array of files. If an array of file is passed, the command will run separately on each file in a FIFO order of processing. There will be no concurrent files, one file will be processed at a time to avoid high memory usage. On success (done) all the processed files will be returned. On error, no files will be returned.
+
+`Pro Tip`: You can with arguments for multiple files since each file has a different name. To avoid problemas you can use the magic word `{{file}}` on args, which will be replaced for the name of the current file being processed.
 
 # How it Works?
 
