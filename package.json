@@ -4,8 +4,7 @@
   "description": "FFMPEG client for front end video processing",
   "main": "dist/index.js",
   "scripts": {
-    "clean": "rm -rf ./dist",
-    "build": "npm run clean; babel src -d dist; npm run uglify; npm run dist-wasm",
+    "build": "rm -rf ./dist; babel src -d dist; npm run uglify; npm run dist-wasm",
     "uglify": "for f in $(find ./dist -type f -name '*.js');do uglifyjs --compress --mangle -o \"$f\" -- \"$f\";done",
     "dist-wasm": "cp -n ./src/ffmpeg-worker/ffmpeg-wasm.js ./dist/ffmpeg-worker"
   },
