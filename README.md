@@ -30,12 +30,11 @@ const ffmpeg = new FFMPEGClient({
 
 When instantiating your client, you have 3 callbacks
 
-|---|---|
 |callback|meaning|
 |---|---|
-|loading|this means that the Web Worker is sting importing the FFMPEG Wasm Module, any file you send to be processed will wait on a Queue and will be processed only when this process has finished. This process will be dramatically faster after the first time due the cache.|
-|ready|this means that the Web Worker has finished the FFMPEG Wasm Module Import, and its ready to process files.|
-|noSupported|this means that this module is not supported by the client, and no Worker will be registered.|
+|loading|triggered when the Web Worker starts to import the FFMPEG Wasm Module, any file you send to be processed will wait on a Queue and will be processed only when this process has finished. This process will be dramatically faster after the first time due the cache.|
+|ready|triggered when the Web Worker has finished the FFMPEG Wasm Module Import, and its ready to process files.|
+|noSupported|triggered when this module is not supported by the client, and no Worker will be registered.|
 
 # How it Works?
 
