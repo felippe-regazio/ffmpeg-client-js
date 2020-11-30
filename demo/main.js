@@ -1,9 +1,9 @@
 const ffmpeg = new FFMPEGClient({
   worker: '../dist/ffmpeg-worker/worker.js',
   on: {
-    loading: data => console.log(data),
-    ready: data => console.log(data),
-    notSupported: data => console.log(data)
+    loading: console.log,
+    ready: console.log,
+    notSupported: console.log
   }
 });
 
