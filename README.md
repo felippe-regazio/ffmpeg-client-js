@@ -74,7 +74,7 @@ ffmpeg.isBusy();    // return true or false
 ffmpeg.supported(); // return true or false
 ```
 
-### Processing Files
+# Processing Files
 
 You can use the `ffmpeg` method to process files (or its alias: `run`).
 Imagine that we have instantiated the FFMPEGClient as const `ffmpeg`:
