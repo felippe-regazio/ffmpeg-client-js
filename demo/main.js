@@ -1,5 +1,5 @@
 const ffmpeg = new FFMPEGClient({
-  worker: '../dist/ffmpeg-worker/worker.js',
+  worker: '../src/ffmpeg-worker/worker.js',
   on: {
     loading: console.log,
     ready: console.log,
