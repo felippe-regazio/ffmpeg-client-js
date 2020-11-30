@@ -17,7 +17,7 @@ To execute FFMPEG commands, first you must instantiate your client:
 
 ```js
 const ffmpeg = new FFMPEGClient({
-  worker: 'https://yourdomain.com/ffmpeg-worker/worker.js',
+  worker: 'https://yourapp.com/ffmpeg-worker/worker.js',
   on: {
     loading: console.log,
     ready: console.log,
@@ -40,7 +40,7 @@ Example:
 
 ```js
 const ffmpeg = new FFMPEGClient({
-  worker: 'https://yourdomain.com/ffmpeg-worker/worker.js',
+  worker: 'https://yourapp.com/ffmpeg-worker/worker.js',
   on: {
     loading: () => {
       console.log('The FFMPEG is being loaded');
@@ -63,6 +63,16 @@ After instantiate the client, you can call the following methods:
 |isBusy|check if the instance is busy (processing something)|
 |isReady|check if the instance is ready (has already loaded the FFMPEG)|
 |supported|check if this module is supported by the client|
+
+The `isBusy`, `isReady` or `supported` methods takes no params. Example:
+
+```js
+const ffmpeg = new FFMPEGClient({ worker: '...' });
+
+ffmpeg.isReady();   // return true or false
+ffmpeg.isBusy();    // return true or false
+ffmpeg.supported(); // return true or false
+```
 
 ### Processing Files
 
