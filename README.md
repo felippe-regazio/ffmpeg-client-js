@@ -36,6 +36,22 @@ When instantiating your client, you have 3 callbacks:
 |ready|triggered when the Web Worker has finished the FFMPEG Wasm Module Import, and its ready to process files.|
 |noSupported|triggered when this module is not supported by the client, and no Worker will be registered.|
 
+Example:
+
+```js
+const ffmpeg = new FFMPEGClient({
+  worker: 'https://yourdomain.com/ffmpeg-worker/worker.js',
+  on: {
+    loading: () => {
+      console.log('The FFMPEG is being loaded');
+    },
+    ready: () => {
+      console.log('The FFMPEG has been loaded');
+    },
+  }
+});
+```
+
 ### The Instance Methods
 
 After instantiate the client, you can call the following methods:
@@ -45,7 +61,7 @@ After instantiate the client, you can call the following methods:
 |ffmpeg|send files to be processed by FFMPEG and get the results|
 |run|an alias to the `ffmpeg` method|
 |isBusy|check if the instance is busy (processing something)|
-|isReady|check if the instance is ready (has already loaded the ffmpeg)|
+|isReady|check if the instance is ready (has already loaded the FFMPEG)|
 |supported|check if this module is supported by the client|
 
 ### Processing Files
