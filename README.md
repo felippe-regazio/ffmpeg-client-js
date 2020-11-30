@@ -80,6 +80,7 @@ You can use the `ffmpeg` method to process files (or its alias: `run`).
 Imagine that we have instantiated the FFMPEGClient as const `ffmpeg`:
 
 ```js
+const ffmpeg = new FFMPEGClient({ worker: '...' });
 const myFiles = document.forms.myForm.querySelector('input[type=file]').files;
 
 ffmpeg.run({
