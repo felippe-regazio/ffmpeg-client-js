@@ -1,4 +1,5 @@
 {
-  "presets": [ "env" ],
-  "ignore": [ "src/ffmpeg-worker/ffmpeg-wasm" ]
+  "presets": [ "es2015", "env" ],
+  "ignore": [ "src/ffmpeg-worker/ffmpeg.js" ],
+  "plugins": ["transform-es2015-destructuring", "transform-object-rest-spread"]
 }

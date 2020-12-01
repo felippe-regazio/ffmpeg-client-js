@@ -31,22 +31,7 @@ class FFMPEGClient {
 		const canIUseWorker = window && !!window.Worker;
 		const breakpointAllowed = !this.MINWIDTH || window.innerWidth >= this.MINWIDTH;
 
-		const canIUseWasm = (() => {
-			try {
-				if (typeof WebAssembly === 'object' && typeof WebAssembly.instantiate === 'function') {
-					const minCode = Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00);
-					const wasmModule = new WebAssembly.Module(minCode);
-
-					if (wasmModule instanceof WebAssembly.Module) {
-						return new WebAssembly.Instance(wasmModule) instanceof WebAssembly.Instance;
-					}
-				}
-			} catch (e) {}
-
-			return false;
-		})();
-
-		return canIUseWorker && canIUseWasm && breakpointAllowed;
+		return canIUseWorker && breakpointAllowed;
 	}
 
 	_notSupportedWarn() {

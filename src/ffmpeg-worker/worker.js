@@ -48,16 +48,17 @@ function execute(task) {
 
 	const files = task.files;
 	const args = task.args;
+
 	const result = [];
+	const errors = [];
 
 	let stdout = '';
-	let errors = [];
 
 	if (!files || !files.length) {
 		return send('error', {
 			args,
 			stdout: '',
-			error: 'The "files" payload is empty, there is nothing to process'
+			error: 'The "files" payload is empty, there is nothing to process',
 		});
 	}
 
@@ -112,7 +113,7 @@ function execute(task) {
 
 send('loading', {});
 
-importScripts('./ffmpeg-wasm.js');
+importScripts('./ffmpeg.js');
 
 self.onmessage = e => execute(e.data);
 self.onerror = error => send('error', error);

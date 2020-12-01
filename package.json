@@ -1,14 +1,14 @@
 {
-  "name": "ffmpeg-wasm-client",
+  "name": "ffmpeg-client-js",
   "version": "1.0.0",
   "description": "FFMPEG client for front end video processing",
   "main": "dist/index.js",
   "scripts": {
     "serve": "live-server . --open=/demo --watch=./src",
     "lint": "eslint ./src",
-    "build": "rm -rf ./dist; npm run lint; babel src -d dist; npm run uglify; npm run dist-wasm",
+    "build": "rm -rf ./dist; npm run lint; babel src -d dist; npm run uglify; npm run dist-ffmpeg",
     "uglify": "for f in $(find ./dist -type f -name '*.js');do uglifyjs --compress --mangle -o \"$f\" -- \"$f\";done",
-    "dist-wasm": "cp -n ./src/ffmpeg-worker/ffmpeg-wasm.js ./dist/ffmpeg-worker"
+    "dist-ffmpeg": "cp -n ./src/ffmpeg-worker/ffmpeg.js ./dist/ffmpeg-worker"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,10 @@
   "homepage": "https://github.com/felippe-regazio/ffmpeg-wasm-client#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-plugin-transform-es2015-destructuring": "^6.23.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
     "eslint": "^7.14.0",
     "eslint-config-google": "^0.14.0",
     "live-server": "^1.2.1",

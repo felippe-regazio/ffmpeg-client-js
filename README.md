@@ -1,4 +1,4 @@
-# FFMPEG Wasm Client
+# FFMPEG Client JS
 
 This a dead simple FFMPEG Client for Front End Video Processing. This should NOT replace a backend infra-structure for video processing, but you can use it as a client-first option when processing your videos, letting your backend as a fallback layer whe it is not supported. You will have speed gain and coast reduction. This client supports basically any FFMPEG command over a simple File or array of Files, and is optimized to not use/freeze the JS main thread and keep a low heap usage.
 
@@ -32,8 +32,8 @@ When instantiating your client, you have 3 callbacks:
 
 |callback|definition|
 |---|---|
-|loading|triggered when the Web Worker starts to import the FFMPEG Wasm Module, any file you send to be processed will wait on a Queue and will be processed only when this process has finished. This process will be dramatically faster after the first time due the cache.|
-|ready|triggered when the Web Worker has finished the FFMPEG Wasm Module Import, and its ready to process files.|
+|loading|triggered when the Web Worker starts to import the FFMPEG JS Module, any file you send to be processed will wait on a Queue and will be processed only when this process has finished. This process will be dramatically faster after the first time due the cache.|
+|ready|triggered when the Web Worker has finished the FFMPEG JS Module Import, and its ready to process files.|
 |noSupported|triggered when this module is not supported by the client, and no Worker will be registered.|
 
 Example:
@@ -282,11 +282,11 @@ npm run lint
 
 This module is optimized to work with multiple files at once without warm the client or the app payload, to achieve it, the following steps will happen when you instantiate your ffmpeg client:
 
-1. The instance will check if the current client supports this module by looking for Web Worker availability, Wasm compatibility and a bunch of other configurations.
+1. The instance will check if the current client supports this module by looking for Web Worker availability.
 
-2. If compatible, a Web Worker will be registered. A Worker can handle heavy processing tasks in background without freeze the JS main thread, and have a good cache capabilities. In our case, the Worker is the layer that talks directly with the FFMPEG Wasm Module.
+2. If compatible, a Web Worker will be registered. A Worker can handle heavy processing tasks in background without freeze the JS main thread, and have a good cache capabilities. In our case, the Worker is used as a layer that talks directly with the FFMPEG JS Module which is heavier.
 
-3. Once registered, the Web Worker will import and cache the FFMPEG Wasm Module. The cache is very important here since the Wasm module has 26MB (6MB Gzipped). This wont harm your connection since it will be imported asynchronously in background. Its a good practice to deactivate this module for mobile devices. Once cached, the FFMPEG Wasm Module wont have the import cold start again.
+3. Once registered, the Web Worker will import and cache the FFMPEG JS Module. The cache is very important here since the JS module has 26MB (6MB Gzipped). This wont harm your connection since it will be imported asynchronously in background. Its a good practice to deactivate this module for mobile devices. Once cached, the FFMPEG JS Module wont have the cold start again.
 
 4. The Worker will inform the Client that the FFMPEG was imported and cached, and your is all configured and ready to process videos directly from the client.
 
