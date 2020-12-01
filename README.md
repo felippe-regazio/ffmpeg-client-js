@@ -244,7 +244,7 @@ ffmpegProcessors.thumb('00:01:00', {
 });
 ```
 
-# Development and Testing
+# Development
 
 To start development, run
 
