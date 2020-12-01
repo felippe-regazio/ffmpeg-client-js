@@ -105,7 +105,7 @@ The command above will run the `ffmpeg` with the given `args` for each file in `
 
 **Busy?**: The `busy` callback is triggered when the files start being processed, this means that the ffmpeg is still processing your task. The state will change to `error` or `done`.
 
-# The Result - Done Callback
+# The Result (done)
 
 For a successfully processed task, the `done` callback will be triggered receiving the following data:
 
