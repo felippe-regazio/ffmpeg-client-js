@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/felippe-regazio/ffmpeg-wasm-client.git"
+    "url": "git+https://github.com/felippe-regazio/ffmpeg-client-js.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/felippe-regazio/ffmpeg-wasm-client/issues"
+    "url": "https://github.com/felippe-regazio/ffmpeg-client-js/issues"
   },
-  "homepage": "https://github.com/felippe-regazio/ffmpeg-wasm-client#readme",
+  "homepage": "https://github.com/felippe-regazio/ffmpeg-client-js#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-es2015-destructuring": "^6.23.0",
