@@ -17,12 +17,12 @@ To execute FFMPEG commands, first you must instantiate your client:
 
 ```js
 const ffmpeg = new FFMPEGClient({
-  worker: 'https://yourapp.com/ffmpeg-worker/worker.js',
-  on: {
-    loading: console.log,
-    ready: console.log,
-    notSupported: console.log
-  }
+	worker: 'https://yourapp.com/ffmpeg-worker/worker.js',
+	on: {
+		loading: console.log,
+		ready: console.log,
+		notSupported: console.log
+	}
 });
 ```
 
@@ -40,15 +40,15 @@ Example:
 
 ```js
 const ffmpeg = new FFMPEGClient({
-  worker: 'https://yourapp.com/ffmpeg-worker/worker.js',
-  on: {
-    loading: () => {
-      console.log('The FFMPEG is being loaded');
-    },
-    ready: () => {
-      console.log('The FFMPEG has been loaded');
-    },
-  }
+	worker: 'https://yourapp.com/ffmpeg-worker/worker.js',
+	on: {
+		loading: () => {
+			console.log('The FFMPEG is being loaded');
+		},
+		ready: () => {
+			console.log('The FFMPEG has been loaded');
+		},
+	}
 });
 ```
 
@@ -84,24 +84,97 @@ const ffmpeg = new FFMPEGClient({ worker: '...' });
 const myFiles = document.forms.myForm.querySelector('input[type=file]').files;
 
 ffmpeg.run({
-  files: myFiles,
-  args: '-i {{file}} -t 00:00:15 -c copy {{file}}',
-  on: {
-    busy: console.log,
-    error: console.log,
-    done: data => {
-      // this is the result
-      console.log(data);
-    }
-  }
+	files: myFiles,
+	args: '-i {{file}} -t 00:00:15 -c copy {{file}}',
+	on: {
+		busy: console.log,
+		error: console.log,
+		done: data => {
+			// this is the result
+			console.log(data);
+		}
+	}
 });
 ```
 
-The command above will run the `ffmpeg` with the given `args` for each file in `myFiles`, if an error occours, the `error` callback will be triggered passing the { error } as argument, if no error happened, the `done` callback will be triggered passing the { result } as argument.
+The command above will run the `ffmpeg` with the given `args` for each file in `myFiles`, if an error occours, the `error` callback will be triggered passing the { error } as argument and no file will be returned, if no error happened, the `done` callback will be triggered passing the { result } as argument.
 
-**Attention**: you must omit the "ffmpeg" word from `args`, Also, the `files` key accepts a single file or an array of files. If an array of file is passed, the command will run separately on each file in a FIFO order of processing. There will be no concurrent files, one file will be processed at a time to avoid high memory usage. On success (done) all the processed files will be returned. On error, no files will be returned.
+**Attention**: you must omit the "ffmpeg" word from `args`, Also, the `files` key accepts a single file or an array of files. If an array of file is passed, the command will run separately on each file in a FIFO order. There will be no concurrent files, one file will be processed at a time to avoid high memory usage or heap problems.
 
-**Pro Tip**: You can with arguments for multiple files since each file has a different name. To avoid problemas you can use the magic word `{{file}}` on args, which will be replaced for the name of the current file being processed.
+**Pro Tip**: You can have problems with arguments for multiple files since each file has a different name. To avoid problems you can use the magic word `{{file}}` on args, which will be replaced by the name of the current file being processed.
+
+**Busy?**: The `busy` callback is triggered when the files start being processed, this means that the ffmpeg is still processing your task. The state will change to `error` or `done`.
+
+# The Result - Done Callback
+
+For a successfully processed task, the `done` callback will be triggered receiving the following data:
+
+```js
+{
+	type: 'done',
+	stdout: 'Ffmpeg output (very useful for debug). This can be a long string sometimes.',
+
+	result: [
+		{
+			name: 'BLUDV.TV.mp4',
+			blobs:  [ { /*blob data*/	}, { /*blob data*/ } ],
+			args: '-i BLUDV.TV.mp4 -t 00:00:15 -c copy output/BLUDV.TV.mp4',
+			buffers:  [
+				{
+					name: 'BLUDV.TV.mp4',
+					data:  { /*buffer data*/ }
+				}
+			]
+		},
+
+		{
+			name: 'output.mp4',
+			blobs:  [ { /*blob data*/	}, { /*blob data*/ } ],
+			args: '-i output.mp4 -t 00:00:15 -c copy output/output.mp4',
+			buffers:  [
+				{
+					name: 'output.mp4',
+					data:  { /*buffer data*/ }
+				}
+			]
+		}
+	]
+}
+```
+
+The result keys are:
+
+|key|definition|
+|---|---|
+|type|The event type returned by the Web Worker|
+|stdout|The ffmpeg output, this is useful when you have some error while processing|
+|result|Contains the processed files|
+|result.blobs|Contains resultant files as blob. THis is an array because, depending of the arguments, one file can generate multiple outputs|
+|result.buffers|Contains resultant files as Uint8Array Buffer. THis is an array because, depending of the arguments, one file can generate multiple outputs|
+|result.name|The original file name|
+|result.args|The ffmpeg arguments used to process the file. The "results" shows the parsed arguments|
+
+# The Error Callback
+
+If an error occours, the `error` callback will be triggered receving the following data:
+
+```js
+{
+	type: 'error',
+	args: '-i {{file}} -t 00:00:15 -c copy {{file}}',
+	error: 'The "files" payload is empty, there is nothing to process',
+	stdout: 'The ffmpeg error output - useful for debug',
+}
+```
+
+The error keys are:
+
+|key|definition|
+|---|---|
+|type|The event type returned by the Web Worker|
+|args|The arguments passed to the worker. The error object shows the non parsed arguments|
+|error|The error reference as String|
+|stdout|The ffmpeg output, this is useful for debug purposes|
 
 # How it Works?
 
