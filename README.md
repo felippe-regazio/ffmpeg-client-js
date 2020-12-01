@@ -244,6 +244,40 @@ ffmpegProcessors.thumb('00:01:00', {
 });
 ```
 
+# Development and Testing
+
+To start development, run
+
+```bash
+npm install
+```
+
+### Demo, Dev & Test
+
+If you want to checkout some demonstration or manually test, download/clone this repo, and execute:
+
+```bash
+npm run serve
+```
+
+You will se a demonstration page. This mode is also useful for development.
+
+### Build
+
+To generate a new build, run:
+
+```bash
+npm run build
+```
+
+### Lint
+
+Just run
+
+```bash
+npm run lint
+```
+
 # How it Works?
 
 This module is optimized to work with multiple files at once without warm the client or the app payload, to achieve it, the following steps will happen when you instantiate your ffmpeg client:
