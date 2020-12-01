@@ -252,7 +252,7 @@ To start development, run
 npm install
 ```
 
-### Demo, Dev & Test
+### Demo, Dev & Manual Test
 
 If you want to checkout some demonstration or manually test, download/clone this repo, and execute:
 
