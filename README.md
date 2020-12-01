@@ -246,7 +246,7 @@ ffmpegProcessors.thumb('00:01:00', {
 
 # Development
 
-To start development, run
+To start development, download/clone this repo and run:
 
 ```bash
 npm install
@@ -254,7 +254,7 @@ npm install
 
 ### Demo, Dev & Manual Test
 
-If you want to checkout some demonstration or manually test, download/clone this repo, and execute:
+If you want to checkout some demonstration or manually test:
 
 ```bash
 npm run serve
