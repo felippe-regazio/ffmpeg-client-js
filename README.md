@@ -176,6 +176,74 @@ The error keys are:
 |error|The error reference as String|
 |stdout|The ffmpeg output, this is useful for debug purposes|
 
+# Processors
+
+The processors are a collection of FFMPEG Client common task as split video, trim video, generate thumbnail by time, etc. To use the processors, you must instantiate the `FFMPEGClientProcessors` passing your client instance as argument, like this:
+
+```js
+const ffmpeg = new FFMPEGClient({ worker: '...' });
+const ffmpegProcessors = new FFMPEGClientProcessors(ffmpeg);
+```
+
+Every processor accepts the same arguments as the `ffmpeg` method, but with some extras. Also, you dont need to pass the `args`, since your args will be ignored by processors (actually your args will be override by the processor internal arguments). This is very useful to keep a collection of default command without needing to seek on the internet about how to do this and that with ffmpeg.
+
+### Trim
+
+To trim Video files from 00:01:00 to 00:02:00 minutes:
+
+```js
+const ffmpeg = new FFMPEGClient({ worker: '...' });
+const ffmpegProcessors = new FFMPEGClientProcessors(ffmpeg);
+const myFiles = document.forms.myForm.querySelector('input[type=file]').files;
+
+ffmpegProcessors.trim('00:01:00', '00:02:00', {
+  files: myFiles,
+  on: {
+    busy: console.log,
+    error: console.log,
+    done: console.log
+  }
+});
+```
+
+### Split
+
+To split video files in separated chunks of 15 seconds each, for example:
+
+```js
+const ffmpeg = new FFMPEGClient({ worker: '...' });
+const ffmpegProcessors = new FFMPEGClientProcessors(ffmpeg);
+const myFiles = document.forms.myForm.querySelector('input[type=file]').files;
+
+ffmpegProcessors.split('00:00:15', {
+  files: myFiles,
+  on: {
+    busy: console.log,
+    error: console.log,
+    done: console.log
+  }
+});
+```
+
+### Thumb
+
+To generate a png thumb of the 00:01:00 video time:
+
+```js
+const ffmpeg = new FFMPEGClient({ worker: '...' });
+const ffmpegProcessors = new FFMPEGClientProcessors(ffmpeg);
+const myFiles = document.forms.myForm.querySelector('input[type=file]').files;
+
+ffmpegProcessors.thumb('00:01:00', {
+  files: myFiles,
+  on: {
+    busy: console.log,
+    error: console.log,
+    done: console.log
+  }
+});
+```
+
 # How it Works?
 
 This module is optimized to work with multiple files at once without warm the client or the app payload, to achieve it, the following steps will happen when you instantiate your ffmpeg client:
