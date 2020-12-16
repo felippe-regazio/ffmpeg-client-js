@@ -15,7 +15,7 @@ class FFMPEGClientProcessors {
    * @param {*} options   ffmpeg client options
    */
 	trim(from, to, options) {
-		options.args = `-i {{file}} -ss ${from} -to ${to} -c:v copy -c:a copy {{file}}`;
+		options.args = `-i "{{file}}" -ss ${from} -to ${to} -c:v copy -c:a copy "{{file}}"`;
 
 		return this.process(options);
 	}
@@ -40,7 +40,7 @@ class FFMPEGClientProcessors {
    * @param {options} options  ffmpeg client options
    */
 	thumb(time, options) {
-		options.args = `-i {{file}} -ss ${time} -vframes 1 {{file}}.thumb.png`;
+		options.args = `-i "{{file}}" -ss ${time} -vframes 1 {{file_slugify}}.thumb.png`;
 
 		return this.process(options);
 	}
