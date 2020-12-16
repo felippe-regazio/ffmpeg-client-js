@@ -27,7 +27,8 @@ class FFMPEGClientProcessors {
    * @param {options} options  ffmpeg client options
    */
 	split(time, options) {
-		options.args = `-i {{file}} -c copy -map 0 -segment_time ${time} -f segment -reset_timestamps 1 %03d_{{file}}`;
+		/* eslint-disable-next-line */
+		options.args = `-i "{{file}}" -c copy -map 0 -segment_time ${time} -f segment -reset_timestamps 1 %03d_{{file_slugify}}`;
 
 		return this.process(options);
 	}

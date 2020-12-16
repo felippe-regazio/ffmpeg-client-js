@@ -5,10 +5,23 @@ function send(type, data) {
 	});
 }
 
-function parseArgs(text) {
+function slugify(text) {
+	return text
+		.toString()
+		.toLowerCase()
+		.normalize('NFD')
+		.trim()
+		.replace(/\s+/g, '-')
+		.replace(/[^\w\-.]+/g, '')
+		.replace(/\-\-+/g, '-');
+}
+
+function parseArgs(text, fileName) {
 	let args = [];
 
 	text = text.replace(/\s+/g, ' ');
+	text = text.replace(/\{\{file\}\}/g, fileName);
+	text = text.replace(/\{\{file_slugify\}\}/g, slugify(fileName));
 
 	text.split('"').forEach(function(t, i) {
 		t = t.trim();
@@ -66,7 +79,7 @@ function execute(task) {
 		if (errors.length) return false;
 
 		const _file = parseFile(file);
-		const _args = parseArgs(args.replace(/\{\{file\}\}/g, file.name));
+		const _args = parseArgs(args, file.name);
 
 		const r = ffmpeg_run({
 			stdin: () => {},

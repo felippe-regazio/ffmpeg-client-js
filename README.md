@@ -101,7 +101,7 @@ The command above will run the `ffmpeg` with the given `args` for each file in `
 
 **Attention**: you must omit the "ffmpeg" word from `args`, Also, the `files` key accepts a single file or an array of files. If an array of file is passed, the command will run separately on each file in a FIFO order. There will be no concurrent files, one file will be processed at a time to avoid high memory usage or heap problems.
 
-**Pro Tip**: You can have problems with arguments for multiple files since each file has a different name. To avoid problems you can use the magic word `{{file}}` on args, which will be replaced by the name of the current file being processed.
+**Pro Tip**: You can have problems with arguments for multiple files since each file has a different name. To avoid problems you can use the magic word `{{file}}` on args, which will be replaced by the name of the current file being processed. You can also use `{{file_slugify}}` which will be replaced by a slugified version of the file name, very useful for outputs.
 
 **Busy?**: The `busy` callback is triggered when the files start being processed, this means that the ffmpeg is still processing your task. The state will change to `error` or `done`.
 
