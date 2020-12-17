@@ -15,7 +15,7 @@ class FFMPEGClientProcessors {
    * @param {*} options   ffmpeg client options
    */
 	trim(from, to, options) {
-		options.args = `-i "{{file}}" -ss ${from} -to ${to} -c:v copy -c:a copy "{{file}}"`;
+		options.args = `-y -i "{{file}}" -ss ${from} -to ${to} -c:v copy -c:a copy {{file_slugify}}`;
 
 		return this.process(options);
 	}
